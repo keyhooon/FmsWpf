@@ -1,0 +1,74 @@
+﻿<dxn:NavBarGroup
+	x:Class="BusManagement.Views.VehicleNavigator"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+	xmlns:local="clr-namespace:BusManagement.Views"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:models="clr-namespace:BusManagement.Models"
+	xmlns:mvvm="http://prismlibrary.com/"
+	xmlns:system="clr-namespace:System;assembly=mscorlib"
+	xmlns:viewModels="clr-namespace:BusManagement.ViewModels"
+	mvvm:ViewModelLocator.AutoWireViewModel="False"
+	Header="Bus Explorer"
+	mc:Ignorable="d">
+	<dxn:NavBarGroup.Resources>
+		<HierarchicalDataTemplate DataType="{x:Type models:Fleet}" ItemsSource="{Binding Vehicles}">
+			<StackPanel>
+				<TextBlock Text="{Binding Path=Code}" />
+				<TextBlock Text="{Binding Path=Name}" />
+			</StackPanel>
+		</HierarchicalDataTemplate>
+		<HierarchicalDataTemplate DataType="{x:Type models:Vehicle}" ItemsSource="{Binding Drivers}">
+			<StackPanel>
+				<TextBlock Text="{Binding Path=PlateNumber}" />
+				<TextBlock Text="{Binding Path=Company.Name}" />
+			</StackPanel>
+		</HierarchicalDataTemplate>
+		<DataTemplate DataType="{x:Type models:Driver}">
+			<StackPanel>
+				<TextBlock>
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0}, {1}">
+							<Binding Path="Name" />
+							<Binding Path="LastName" />
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock Text="{Binding LicenseCode}" />
+			</StackPanel>
+		</DataTemplate>
+	</dxn:NavBarGroup.Resources>
+
+	<dxn:NavBarGroup.Items>
+		<dxn:NavBarItem>
+			<dxn:NavBarItem.Content>
+
+				<dxn:NavBarControl ItemsSource="{Binding Fleets}">
+					<dxn:NavBarControl.View>
+						<dxn:SideBarView />
+					</dxn:NavBarControl.View>
+					<dxn:NavBarControl.ItemTemplate>
+						<DataTemplate>
+							<dxn:NavBarGroup
+								DisplaySource="Items"
+								Header="{Binding Name}"
+								ItemsSource="{Binding Vehicles}">
+								<dxn:NavBarGroup.ItemTemplate>
+									<DataTemplate>
+										<dxn:NavBarItem>
+											<StackPanel>
+												<ContentControl Content="{Binding}" />
+											</StackPanel>
+										</dxn:NavBarItem>
+									</DataTemplate>
+								</dxn:NavBarGroup.ItemTemplate>
+							</dxn:NavBarGroup>
+						</DataTemplate>
+					</dxn:NavBarControl.ItemTemplate>
+				</dxn:NavBarControl>
+			</dxn:NavBarItem.Content>
+		</dxn:NavBarItem>
+	</dxn:NavBarGroup.Items>
+</dxn:NavBarGroup>
