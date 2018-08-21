@@ -13,7 +13,7 @@ namespace BusManagement.Data
         public VehicleDbConfiguration()
         {
             SetDatabaseInitializer(new VehicleDBInitializer());
-            SetDefaultConnectionFactory(new SqlConnectionFactory("Data Source=HP-PC; Integrated Security=True; MultipleActiveResultSets=True"));
+            SetDefaultConnectionFactory(new SqlConnectionFactory("Data Source=.; Integrated Security=True; MultipleActiveResultSets=True"));
             SetProviderServices("System.Data.SqlClient",
                                      System.Data.Entity.SqlServer.SqlProviderServices.Instance);
         }
